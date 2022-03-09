@@ -22,6 +22,7 @@
             show_bucket();
         });
 
+
         function show_bucket() {
             $.ajax({
                 type: "GET",
@@ -43,6 +44,7 @@
                         } else {
                             temp_html = `<li>
                                             <h2 class="done">✅ ${bucket}</h2>
+                                            <button onclick="cancel_bucket(${num})" type="button" class="btn btn-outline-danger">취소!</button>
                                          </li>`
                         }
                         $('#bucket-list').append(temp_html)
@@ -72,6 +74,18 @@
                 data: {num_give: num},
                 success: function (response) {
                     alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function cancel_bucket(num) {
+            $.ajax({
+                type: "POST",
+                url: "/bucket/cancel",
+                data: {num_give: num},
+                success: function (response) {
+                    // alert(response["msg"])
                     window.location.reload()
                 }
             });
